@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[ThingHasProperty] (
+    [Id]              INT            IDENTITY (1, 1) NOT NULL,
+    [OwnerThingId]    INT            NOT NULL,
+    [PropertyThingId] INT            NOT NULL,
+    [Name]            NVARCHAR (50)  NOT NULL,
+    [Description]     NVARCHAR (MAX) NOT NULL,
+    [IsList]          BIT            DEFAULT ((0)) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
