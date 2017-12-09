@@ -60,7 +60,14 @@ namespace AppBuilder.DAL
 			return scalarVal;
 		}
 
-		//public T GetObjectById<T>
+		/// <summary>
+		/// Returns an object from the database based upon one or more keys
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="constr"></param>
+		/// <param name="storedProcedureName"></param>
+		/// <param name="pars"></param>
+		/// <returns></returns>
 		public T GetObjectByParameters<T>(string constr, string storedProcedureName, SqlParameter[] pars)    //SqlParameter[] parameters = null
 		{
 
@@ -138,7 +145,7 @@ namespace AppBuilder.DAL
 			return (T) instance;
 		}
 
-		public List<T> GetObjectList<T>(string constr, string _procName)
+		public List<T> GetObjectList<T>(string constr, string _procName, SqlParameter[] pars = null)
 		{
 			List<T> objectList; 
 
@@ -151,7 +158,7 @@ namespace AppBuilder.DAL
 			connection = new SqlConnection(constr);
 
 			//Tell the SqlCommand what query to execute and what SqlConnection to use.  
-			using (SqlCommand command = new SqlCommand("AllThings", connection))  //
+			using (SqlCommand command = new SqlCommand(_procName, connection))  //
 			{
 				objectList = new List<T>();
 
@@ -226,6 +233,60 @@ namespace AppBuilder.DAL
 
 			}
 			return objectList;
+		}
+
+		public int UpdateObject(string constr, string storedProcedureName, SqlParameter[] pars = null)
+		{
+			connection = new SqlConnection(constr);
+
+			int rowsAffected = 0;
+			using (SqlCommand command = new SqlCommand("UpdateThing", connection))
+			{
+				command.CommandType = CommandType.StoredProcedure;
+				if (pars != null && pars.Length > 0)
+				{
+					foreach (SqlParameter param in pars)
+					{
+						command.Parameters.AddWithValue(param.ParameterName, param.Value);
+					}
+				}
+
+				//try to open the connection
+				try
+				{
+					connection.Open();
+				}
+				catch (Exception ex)
+				{
+					//There is a problem connecting to the instance of the SQL Server.  
+					//For example, the connection string might be wrong,  
+					//or the SQL Server might not be available to you. 
+					string error = ex.GetBaseException().ToString();
+				}
+
+				//Execute the query.  
+				try
+				{
+					 rowsAffected = Int32.Parse(command.ExecuteNonQuery().ToString());
+
+				}
+				catch (Exception ex)
+				{
+					//There was a problem executing the query. For examaple, your SQL statement  
+					//might be wrong, or you might not have permission to create records in the  
+					//specified table. 
+					string error = ex.ToString();
+				}
+
+				//is this necessary?
+				finally
+				{
+					connection.Close();
+				}
+			}
+
+			return rowsAffected;
+
 		}
 	}
 }

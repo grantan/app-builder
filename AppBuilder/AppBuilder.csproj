@@ -211,6 +211,7 @@
     </Compile>
     <Compile Include="DAL\DataAccess.cs" />
     <Compile Include="DAL\ThingDataAccess.cs" />
+    <Compile Include="DAL\ThingPropertyDataAccess.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

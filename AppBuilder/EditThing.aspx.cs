@@ -12,21 +12,32 @@ namespace AppBuilder
 	public partial class EditThing : System.Web.UI.Page
 	{
 		ThingDataAccess TDA;
+		ThingPropertyDataAccess TPDA;
+		Thing _thing;
+		int _thingId;
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			TDA = new ThingDataAccess();
-			int id = Int32.Parse(Page.Request.QueryString["id"]);
-			Thing thing = LoadThing(id);
+			
+			_thing = LoadThing(GetThingId());
+			Session["OwnerThing"] = _thing;
 			if(!IsPostBack)
 			{
-				txtId.Text = id.ToString();
-				txtDescription.Text = thing.Description;
-				txtName.Text = thing.Name;
+				txtId.Text = _thing.Id.ToString();
+				txtDescription.Text = _thing.Description;
+				txtName.Text = _thing.Name;
 
 				LoadThingDDL();
-				LoadPropertiesGrid(id);				
+				ddlTypes.SelectedValue = _thing.ThingTypeID.ToString();
+				LoadPropertiesGrid(_thing.Id);				
 			}
+		}
+
+		private int GetThingId()
+		{
+			int id = Int32.Parse(Page.Request.QueryString["id"]);
+			return id;
 		}
 
 		private void LoadThingDDL()
@@ -37,7 +48,7 @@ namespace AppBuilder
 				ddlTypes.DataTextField = "Name";
 				ddlTypes.DataValueField = "Id";
 				ddlTypes.DataSource = thingList;
-				ddlTypes.DataBind();
+				ddlTypes.DataBind();				
 			}
 		}
 
@@ -47,9 +58,10 @@ namespace AppBuilder
 			return thing;
 		}
 
-		private void LoadPropertiesGrid(int id)
+		private void LoadPropertiesGrid(int ownerId)
 		{
-			List<ThingProperty> propertyList = TDA.GetThingProperties(id);
+			TPDA = new ThingPropertyDataAccess();
+			List<ThingProperty> propertyList = TPDA.GetThingProperties(ownerId);
 			if (propertyList != null)
 			{
 				gvProperties.DataSource = propertyList;
@@ -66,6 +78,7 @@ namespace AppBuilder
 			{
 				var lblId = row.FindControl("lblId") as Label;
 				id = Int32.Parse(lblId.Text);
+				
 				//var lblRequestType = row.FindControl("lblRequestType") as Label;
 				//var lblStatus = row.FindControl("lblStatus") as Label;
 
@@ -79,10 +92,8 @@ namespace AppBuilder
 
 			}
 
-
 			//int id = Int32.Parse(gvThings.SelectedRow.Cells[1].Text);
-			int ownerId = Int32.Parse(txtId.Text);
-			Page.Response.Redirect("EditThingProperty.aspx?id=" + id);
+			Page.Response.Redirect("EditThingProperty.aspx?thingPropertyId="+ id);
 		}
 
 		protected void btnAddProperty_Click(object sender, EventArgs e)
@@ -102,6 +113,7 @@ namespace AppBuilder
 			updatedThing.Id = Int32.Parse(txtId.Text);
 			updatedThing.Name = txtName.Text;
 			updatedThing.Description = txtDescription.Text;
+			updatedThing.ThingTypeID = Int32.Parse(ddlTypes.SelectedValue);
 			TDA.EditThing(updatedThing);
 			Page.Response.Redirect("ThingList.aspx");
 		}

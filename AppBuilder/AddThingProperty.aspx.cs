@@ -11,6 +11,7 @@ namespace AppBuilder
 {
 	public partial class AddThingProperty : System.Web.UI.Page
 	{
+		ThingPropertyDataAccess TPDA;
 		ThingDataAccess TDA;
 		int _id;
 
@@ -45,8 +46,8 @@ namespace AppBuilder
 		{
 			int ownerId = _id;
 			int propertyId = Int32.Parse(ddlTypes.SelectedValue);
-			TDA = new ThingDataAccess();
-			TDA.InsertThingProperty(ownerId, propertyId, txtName.Text, txtDescription.Text, cbList.Checked);
+			TPDA = new ThingPropertyDataAccess();
+			TPDA.InsertThingProperty(ownerId, propertyId, txtName.Text, txtDescription.Text, cbList.Checked);
 			Response.Redirect("EditThing.aspx?id="+ownerId);
 		}
 

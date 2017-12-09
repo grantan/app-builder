@@ -8,7 +8,7 @@ namespace AppBuilder.Models
 	public class ThingProperty
 	{
 		public int ThingPropertyId { get; set; }
-		public Thing OwnerThing { get; set; }
+		//public Thing OwnerThing { get; set; }
 		public Thing OwnedThing { get; set; }
 		public string PropertyName { get; set; }	
 		public string PropertyDescription { get; set; }

@@ -38,14 +38,14 @@ namespace AppBuilder
 			newThing.Description = txtDescription.Text;
 			newThing.ThingTypeID = Int32.Parse(ddlTypes.SelectedValue);
 			int thingID = SaveThing(newThing);
-			SaveThingInheritance(newThing.ThingTypeID, thingID);
+			//SaveThingInheritance(newThing.ThingTypeID, thingID);
 			Page.Response.Redirect("ThingList.aspx");
 		}
 
-		private void SaveThingInheritance(int thingTypeID, int thingID)
-		{
-			TDA.SaveThingInheritance(thingTypeID, thingID);
-		}
+		//private void SaveThingInheritance(int thingTypeID, int thingID)
+		//{
+		//	TDA.SaveThingInheritance(thingTypeID, thingID);
+		//}
 
 		private int SaveThing(Thing newThing)
 		{			
