@@ -235,12 +235,12 @@ namespace AppBuilder.DAL
 			return objectList;
 		}
 
-		public int UpdateObject(string constr, string storedProcedureName, SqlParameter[] pars = null)
+		public int UpdateDeleteObject(string constr, string storedProcedureName, SqlParameter[] pars = null)
 		{
 			connection = new SqlConnection(constr);
 
 			int rowsAffected = 0;
-			using (SqlCommand command = new SqlCommand("UpdateThing", connection))
+			using (SqlCommand command = new SqlCommand(storedProcedureName, connection))
 			{
 				command.CommandType = CommandType.StoredProcedure;
 				if (pars != null && pars.Length > 0)

@@ -71,29 +71,26 @@ namespace AppBuilder
 
 		protected void gvProperties_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			int id = 0;
-			var lb = (LinkButton)sender;
-			var row = (GridViewRow)lb.NamingContainer;
-			if (row != null)
+			int rowIndex = ((sender as LinkButton).NamingContainer as GridViewRow).RowIndex;			
+			int id = Convert.ToInt32(gvProperties.DataKeys[rowIndex].Values[0]);
+
+			Page.Response.Redirect("EditThingProperty.aspx?thingPropertyId="+ id);
+		}
+
+		protected void gvProperties_RowCommand(object sender, CommandEventArgs e)
+		{
+			if (e.CommandName == "Delete")
 			{
-				var lblId = row.FindControl("lblId") as Label;
-				id = Int32.Parse(lblId.Text);
-				
-				//var lblRequestType = row.FindControl("lblRequestType") as Label;
-				//var lblStatus = row.FindControl("lblStatus") as Label;
+				// Retrieve the row index stored in the 
+				// CommandArgument property.
+				int index = Convert.ToInt32(e.CommandArgument);
 
-				//if (lblRequestType != null && lblRequestor != null && lblStatus != null)
-				//{
-				//	//Get values
-				//	string requestor = lblRequestor.Text;
-				//	string requestType = lblRequestType.Text;
-				//	string status = lblStatus.Text;
-				//}
-
+				TPDA = new ThingPropertyDataAccess();
+				TPDA.DeleteThingProperty(index);
+				_thing = Session["OwnerThing"] as Thing;
+				LoadPropertiesGrid(_thing.Id);
 			}
 
-			//int id = Int32.Parse(gvThings.SelectedRow.Cells[1].Text);
-			Page.Response.Redirect("EditThingProperty.aspx?thingPropertyId="+ id);
 		}
 
 		protected void btnAddProperty_Click(object sender, EventArgs e)

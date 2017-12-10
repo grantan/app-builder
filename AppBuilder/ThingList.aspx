@@ -13,7 +13,7 @@
         </div>
         <div>
 
-            <asp:GridView ID="gvThings" runat="server" BackColor="White"
+            <asp:GridView ID="gvThings" runat="server" DataKeyNames="Id" BackColor="White"
                 BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3"
                 HorizontalAlign="Center" AutoGenerateColumns="False" OnSelectedIndexChanged="gvThings_SelectedIndexChanged">
                 <FooterStyle BackColor="White" ForeColor="#000066" />

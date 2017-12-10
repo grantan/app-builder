@@ -133,6 +133,19 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Database_Scripts\dbo.Thing.sql" />
+    <Content Include="Database_Scripts\dbo.ThingHasProperty.sql" />
+    <Content Include="Database_Scripts\StoredProcedures\dbo.AddThingProperty.sql" />
+    <Content Include="Database_Scripts\StoredProcedures\dbo.AllThings.sql" />
+    <Content Include="Database_Scripts\StoredProcedures\dbo.GetOwnerByPropertyThingId.sql" />
+    <Content Include="Database_Scripts\StoredProcedures\dbo.GetOwnerByThingPropertyId.sql" />
+    <Content Include="Database_Scripts\StoredProcedures\dbo.GetOwnerPropertyList.sql" />
+    <Content Include="Database_Scripts\StoredProcedures\dbo.GetPropertyByPropertyThingID.sql" />
+    <Content Include="Database_Scripts\StoredProcedures\dbo.GetThingByID.sql" />
+    <Content Include="Database_Scripts\StoredProcedures\dbo.GetThingProperty.sql" />
+    <Content Include="Database_Scripts\StoredProcedures\dbo.NewThing.sql" />
+    <Content Include="Database_Scripts\StoredProcedures\dbo.UpdateThing.sql" />
+    <Content Include="Database_Scripts\StoredProcedures\dbo.UpdateThingProperty.sql" />
     <Content Include="Default.aspx" />
     <Content Include="EditThing.aspx" />
     <Content Include="EditThingProperty.aspx" />
@@ -238,6 +251,7 @@
     </Compile>
     <Compile Include="Models\Thing.cs" />
     <Compile Include="Models\ThingProperty.cs" />
+    <Compile Include="Models\ThingPropertyDTO.cs" />
     <Compile Include="NewApplicationMockup.aspx.cs">
       <DependentUpon>NewApplicationMockup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

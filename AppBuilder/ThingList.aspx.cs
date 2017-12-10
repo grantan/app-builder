@@ -28,28 +28,12 @@ namespace AppBuilder
 
 		protected void gvThings_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			int id=0;
-			var lb = (LinkButton)sender;
-			var row = (GridViewRow)lb.NamingContainer;
-			if (row != null)
-			{
-				var lblId = row.FindControl("lblId") as Label;
-				id = Int32.Parse(lblId.Text);
-				//var lblRequestType = row.FindControl("lblRequestType") as Label;
-				//var lblStatus = row.FindControl("lblStatus") as Label;
+			//Determine the RowIndex of the Row whose Button was clicked.
+			int rowIndex = ((sender as LinkButton).NamingContainer as GridViewRow).RowIndex;
 
-				//if (lblRequestType != null && lblRequestor != null && lblStatus != null)
-				//{
-				//	//Get values
-				//	string requestor = lblRequestor.Text;
-				//	string requestType = lblRequestType.Text;
-				//	string status = lblStatus.Text;
-				//}
+			//Get the value of column from the DataKeys using the RowIndex.
+			int id = Convert.ToInt32(gvThings.DataKeys[rowIndex].Values[0]);
 
-			}
-
-
-			//int id = Int32.Parse(gvThings.SelectedRow.Cells[1].Text);
 			Page.Response.Redirect("EditThing.aspx?id="+id); 
 
 		}

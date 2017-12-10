@@ -37,8 +37,9 @@
             </div>
             <div>
                 <asp:GridView ID="gvProperties" runat="server" BackColor="White" EmptyDataText="No properties for this Thing. Add a new Property"
-                    BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3"
+                    BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="ThingPropertyId" 
                     HorizontalAlign="Center" AutoGenerateColumns="False" OnSelectedIndexChanged="gvProperties_SelectedIndexChanged">
+                   
                     <FooterStyle BackColor="White" ForeColor="#000066" />
                     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White"
                         HorizontalAlign="Center" />
@@ -75,10 +76,17 @@
                                 <asp:Label runat="server" ID="lblType" Text='<%#Eval("OwnedThing.Name") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Edit">
+                        <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:LinkButton ID="lbtnEdit" runat="server" Text="Edit" OnCommand="gvProperties_SelectedIndexChanged"
                                     CommandArgument='<%# Eval("ThingPropertyId") %>' CommandName="Select"/>     
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lbtnDelete" runat="server" Text="Delete" OnCommand="gvProperties_RowCommand"
+                                    CommandArgument='<%# Eval("ThingPropertyId") %>' CommandName="Delete"
+                                    OnClientClick="return confirm('Are you sure you want to delete this event?');" />     
                             </ItemTemplate>
                         </asp:TemplateField>
                     
