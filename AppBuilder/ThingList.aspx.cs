@@ -38,6 +38,18 @@ namespace AppBuilder
 
 		}
 
+		protected void gvThings_RowCommand(object sender, CommandEventArgs e)
+		{
+			if (e.CommandName == "Hierarchy")
+			{
+				// Retrieve the row index stored in the 
+				// CommandArgument property.
+				int index = Convert.ToInt32(e.CommandArgument);
+				Response.Redirect("ThingHierarchy.aspx?thingId=" + index);				
+			}
+
+		}
+
 		protected void btnNewThing_Click(object sender, EventArgs e)
 		{
 			Response.Redirect("NewThing.aspx");

@@ -26,6 +26,9 @@
                 <asp:Label ID="lblList" runat="server"  Text="Is a list?" />
                 <asp:CheckBox ID="cbList" runat="server" /><br />
 
+                <asp:Label ID="lblSequence" runat="server"  Text="Sequence Order" />
+                <asp:TextBox ID="txtOrder" runat="server" /> <br />
+
                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" Height="26px" /><br />
                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" Height="26px" OnClick="btnCancel_Click" />
 

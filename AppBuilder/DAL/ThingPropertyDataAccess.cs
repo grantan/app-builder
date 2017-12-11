@@ -30,6 +30,7 @@ namespace AppBuilder.DAL
 			thingProperty.PropertyName = thingPropertyDTO.PropertyName;
 			thingProperty.PropertyDescription = thingPropertyDTO.PropertyDescription;
 			thingProperty.IsList = thingPropertyDTO.IsList;
+			thingProperty.SequenceOrder = thingPropertyDTO.SequenceOrder;
 			ThingDataAccess tda = new ThingDataAccess();
 			Thing ownedThing = tda.GetThingByID(thingPropertyDTO.OwnedThingId);
 			thingProperty.OwnedThing = ownedThing;
@@ -52,13 +53,14 @@ namespace AppBuilder.DAL
 		{
 			_da = new DataAccess();
 			_procName = "UpdateThingProperty";
-			SqlParameter[] pars = new SqlParameter[5];  //= new SqlParam[size_of_type_attribute_list-1]
+			SqlParameter[] pars = new SqlParameter[6];  //= new SqlParam[size_of_type_attribute_list-1]
 
 			pars[0] = new SqlParameter("@thingPropertyId", thingProperty.ThingPropertyId);
 			pars[1] = new SqlParameter("@propertyId", thingProperty.OwnedThing.Id);
 			pars[2] = new SqlParameter("@name", thingProperty.PropertyName);
 			pars[3] = new SqlParameter("@description", thingProperty.PropertyDescription);
 			pars[4] = new SqlParameter("@isList", thingProperty.IsList);
+			pars[5] = new SqlParameter("@sequenceOrder", thingProperty.SequenceOrder);
 
 			int rowsAffected = _da.UpdateDeleteObject(constr, _procName, pars);			
 		}
@@ -73,17 +75,18 @@ namespace AppBuilder.DAL
 			int rowsAffected =_da.UpdateDeleteObject(constr, _procName, pars);
 		}
 
-		public void InsertThingProperty(int ownerThingId, int propertyThingId, string name, string description, bool isList)
+		public void InsertThingProperty(int ownerThingId, int propertyThingId, string name, string description, bool isList, int order)
 		{
 			_da = new DataAccess();
 			_procName = "AddThingProperty";
-			SqlParameter[] pars = new SqlParameter[5];  //= new SqlParam[size_of_type_attribute_list-1]
+			SqlParameter[] pars = new SqlParameter[6];  //= new SqlParam[size_of_type_attribute_list-1]
 
 			pars[0] = new SqlParameter("@ownerId", ownerThingId);
 			pars[1] = new SqlParameter("@propertyId", propertyThingId);
 			pars[2] = new SqlParameter("@name", name);
 			pars[3] = new SqlParameter("@description", description);
 			pars[4] = new SqlParameter("@isList", isList);
+			pars[5] = new SqlParameter("@sequenceOrder", order);
 			int thingPropertyId = _da.InsertForIdentity(constr, _procName, pars);
 		}
 
@@ -105,6 +108,7 @@ namespace AppBuilder.DAL
 				thingProperty.PropertyName = dto.PropertyName;
 				thingProperty.PropertyDescription = dto.PropertyDescription;
 				thingProperty.IsList = dto.IsList;
+				thingProperty.SequenceOrder = dto.SequenceOrder;
 				thingProperty.OwnedThing = _tda.GetThingByID(dto.OwnedThingId);
 				thingProperties.Add(thingProperty);
 			}

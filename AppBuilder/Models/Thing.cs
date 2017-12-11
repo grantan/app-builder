@@ -11,6 +11,6 @@ namespace AppBuilder.Models
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public int ThingTypeID { get; set; }
-		public List<Thing> PropertyList { get; set; }
+		public List<ThingProperty> PropertyList { get; set; }
 	}
 }

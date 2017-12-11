@@ -48,6 +48,12 @@
                                 CommandArgument='<%# Eval("Id") %>' CommandName="Select"/>     
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lbtnHierarchy" runat="server" Text="Hierarchy" OnCommand="gvThings_RowCommand"
+                                CommandArgument='<%# Eval("Id") %>' CommandName="Hierarchy" />     
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <%--<asp:TemplateField HeaderText="Quantity">
                         <ItemTemplate>
                             <asp:TextBox ID="QantityTextBox" runat="server" Text='<%# Eval("Quantity") %>' />

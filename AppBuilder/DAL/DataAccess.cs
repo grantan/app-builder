@@ -45,7 +45,8 @@ namespace AppBuilder.DAL
 				//Execute the query.  
 				try
 				{
-					scalarVal = Int32.Parse(command.ExecuteScalar().ToString());
+					Object scalar = command.ExecuteScalar();
+					scalarVal = Int32.Parse(scalar.ToString());
 				}
 				catch (Exception ex)
 				{

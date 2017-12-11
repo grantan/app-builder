@@ -70,6 +70,7 @@ namespace AppBuilder
 			_thingProperty.PropertyName = txtName.Text;
 			_thingProperty.PropertyDescription = txtDescription.Text;
 			_thingProperty.IsList = cbList.Checked;
+			_thingProperty.SequenceOrder = Int32.Parse(txtOrder.Text);
 
 			TPDA = new ThingPropertyDataAccess();
 			TPDA.UpdateThingProperty(_thingProperty);

@@ -71,6 +71,11 @@
                                 <asp:Label runat="server" ID="lblList" Text='<%#Eval("IsList") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Order">
+                            <ItemTemplate>
+                                <asp:Label runat="server" ID="lbOrder" Text='<%#Eval("SequenceOrder") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Type">
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="lblType" Text='<%#Eval("OwnedThing.Name") %>'></asp:Label>

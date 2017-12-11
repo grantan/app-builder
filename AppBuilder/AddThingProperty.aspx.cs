@@ -47,7 +47,7 @@ namespace AppBuilder
 			int ownerId = _id;
 			int propertyId = Int32.Parse(ddlTypes.SelectedValue);
 			TPDA = new ThingPropertyDataAccess();
-			TPDA.InsertThingProperty(ownerId, propertyId, txtName.Text, txtDescription.Text, cbList.Checked);
+			TPDA.InsertThingProperty(ownerId, propertyId, txtName.Text, txtDescription.Text, cbList.Checked, Int32.Parse(txtOrder.Text));
 			Response.Redirect("EditThing.aspx?id="+ownerId);
 		}
 
