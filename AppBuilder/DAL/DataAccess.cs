@@ -163,6 +163,13 @@ namespace AppBuilder.DAL
 				objectList = new List<T>();
 
 				command.CommandType = CommandType.StoredProcedure;
+				if (pars != null && pars.Length > 0)
+				{
+					foreach (SqlParameter param in pars)
+					{
+						command.Parameters.AddWithValue(param.ParameterName, param.Value);
+					}
+				}
 
 				//try to open the connection
 				try
