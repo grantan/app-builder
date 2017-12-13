@@ -251,6 +251,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Thing.cs" />
+    <Compile Include="Models\ThingDTO.cs" />
     <Compile Include="Models\ThingProperty.cs" />
     <Compile Include="Models\ThingPropertyDTO.cs" />
     <Compile Include="NewApplicationMockup.aspx.cs">

@@ -1,4 +1,6 @@
-﻿using AppBuilder.Utility;
+﻿using AppBuilder.DAL;
+using AppBuilder.Models;
+using AppBuilder.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +16,10 @@ namespace AppBuilder
 		protected void Page_Load(object sender, EventArgs e)
 		{			
 			int thingId = Int32.Parse(Page.Request.QueryString["thingId"]);
-			ObjectGraphUtility util = new ObjectGraphUtility();
-			txtHierarchy.Text = util.GetThingHierarchy(thingId); 
+			//ObjectGraphUtility util = new ObjectGraphUtility();
+			ThingDataAccess TDA = new ThingDataAccess();
+			Thing fullThing = TDA.GetThingHierarchy(thingId);
+			
 		}		
 	}
 

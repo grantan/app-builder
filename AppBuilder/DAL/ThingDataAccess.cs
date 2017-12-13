@@ -30,6 +30,34 @@ namespace AppBuilder.DAL
 			return thing;
 		}
 
+		public Thing GetThingHierarchy(int thingId)  //collapsed onto thiiiis thing
+		{
+			_da = new DataAccess();
+			_procName = "GetThingHierarchy";
+			SqlParameter[] pars = new SqlParameter[1];  //GetSqlParametersFromObject()
+														//= new SqlParam[size_of_type_attribute_list-1]
+			pars[0] = new SqlParameter("@Id", thingId);
+			List<ThingDTO> thingDTOList = _da.GetObjectList<ThingDTO>(constr, _procName, pars);
+			Thing fullThing = ProjectDTOToThing(thingDTOList);
+			return fullThing;
+		}
+
+		private Thing ProjectDTOToThing(List<ThingDTO> thingDTOList)
+		{
+			throw new NotImplementedException();
+		}
+
+		//public string GetThingAndPropertyHierarchy(int thingId)
+		//{
+		//	_da = new DataAccess();
+		//	_procName = "GetThingHierarchy";
+		//	SqlParameter[] pars = new SqlParameter[1];  //GetSqlParametersFromObject()
+		//												//= new SqlParam[size_of_type_attribute_list-1]
+		//	pars[0] = new SqlParameter("@Id", thingId);
+		//	Thing Thing = _da.GetObjectByParameters<Thing>(constr, _procName, pars);
+		//	return thing;
+		//}
+
 		public Thing GetThingByID(int ThingID)
 		{
 			_da = new DataAccess();
