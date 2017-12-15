@@ -14,6 +14,7 @@ namespace AppBuilder.DAL
 		private SqlConnection connection = null;
 		private string constr = System.Configuration.ConfigurationManager.ConnectionStrings["AppBuilderConnectionString"].ToString();
 		DataAccess _da;
+		ThingPropertyDataAccess _tpda;
 		string _procName;
 
 		public Thing NewThing(Thing thing)
@@ -30,22 +31,41 @@ namespace AppBuilder.DAL
 			return thing;
 		}
 
-		public Thing GetThingHierarchy(int thingId)  //collapsed onto thiiiis thing
+		public Thing GetThingHierarchy(int thingId)  //collapsed onto this thing
 		{
-			_da = new DataAccess();
-			_procName = "GetThingHierarchy";
-			SqlParameter[] pars = new SqlParameter[1];  //GetSqlParametersFromObject()
-														//= new SqlParam[size_of_type_attribute_list-1]
-			pars[0] = new SqlParameter("@Id", thingId);
-			List<ThingDTO> thingDTOList = _da.GetObjectList<ThingDTO>(constr, _procName, pars);
-			Thing fullThing = ProjectDTOToThing(thingDTOList);
-			return fullThing;
+			//_tpda = new ThingPropertyDataAccess();
+			Thing thing = GetThingByID(thingId);
+			thing.PropertyList = new List<ThingProperty>();
+			return GetFullThing(thing);			
 		}
 
-		private Thing ProjectDTOToThing(List<ThingDTO> thingDTOList)
+		public Thing GetFullThing(Thing currentThing)
 		{
-			throw new NotImplementedException();
+			currentThing.PropertyList.AddRange(GetFullThingProperties(currentThing.Id));
+			if (currentThing.Id == 1)  //Or base type thing -- base case
+			{				
+				return currentThing;
+			}
+			//Thing parentThing = GetThingByID(currentThing.ThingTypeID);
+			currentThing.PropertyList.AddRange(GetFullThingProperties(currentThing.ThingTypeID));
+			return currentThing;
 		}
+
+		private List<ThingProperty> GetFullThingProperties(int id)
+		{
+			_tpda = new ThingPropertyDataAccess();
+			List<ThingProperty> fullThingProperties = _tpda.GetThingProperties(id);
+			foreach (ThingProperty tProp in fullThingProperties)
+			{
+				Thing thing = GetThingByID(tProp.OwnedThing.Id);
+				thing.PropertyList = new List<ThingProperty>();
+				tProp.OwnedThing = GetFullThing(thing);
+			}
+			return fullThingProperties;
+		}
+
+		
+
 
 		//public string GetThingAndPropertyHierarchy(int thingId)
 		//{

@@ -9,6 +9,7 @@ namespace AppBuilder.Models
 	{
 		public int ParentThingId { get; set; }	
 		public int ThingId { get; set; }
+		public int ThingPropertyId { get; set; }
 
 	}
 }
