@@ -35,6 +35,7 @@ namespace AppBuilder
 				txtName.Text = _thingProperty.PropertyName;
 				txtDescription.Text = _thingProperty.PropertyDescription;
 				cbList.Checked = _thingProperty.IsList;
+				txtOrder.Text = _thingProperty.SequenceOrder.ToString();
 				BindPropertyDDL();
 			}
 		}

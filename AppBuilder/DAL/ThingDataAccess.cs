@@ -35,36 +35,51 @@ namespace AppBuilder.DAL
 		{
 			//_tpda = new ThingPropertyDataAccess();
 			Thing thing = GetThingByID(thingId);
-			thing.PropertyList = new List<ThingProperty>();
-			return GetFullThing(thing);			
+			thing.PropertyList = GetAllThingProperties(thingId);
+			return thing;
+			//return GetFullThing(thing);			
 		}
 
-		public Thing GetFullThing(Thing currentThing)
-		{
-			currentThing.PropertyList.AddRange(GetFullThingProperties(currentThing.Id));
-			if (currentThing.Id == 1)  //Or base type thing -- base case
-			{				
-				return currentThing;
-			}
-			//Thing parentThing = GetThingByID(currentThing.ThingTypeID);
-			currentThing.PropertyList.AddRange(GetFullThingProperties(currentThing.ThingTypeID));
-			return currentThing;
-		}
+		//public Thing GetFullThing(Thing currentThing)
+		//{
+		//	currentThing.PropertyList.AddRange(GetFullThingProperties(currentThing.Id));
+		//	if (currentThing.Id == 1)  //Or base type thing -- base case
+		//	{				
+		//		return currentThing;
+		//	}
+		//	//Thing parentThing = GetThingByID(currentThing.ThingTypeID);
+		//	if (currentThing.PropertyList == null)
+		//	{
+		//		currentThing.PropertyList = new List<ThingProperty>();
+		//	}
+		//	Thing parentThing = GetThingByID(currentThing.ThingTypeID);
+		//	parentThing.PropertyList = new List<ThingProperty>();
+		//	parentThing = GetFullThing(parentThing);
+		//	currentThing.PropertyList.AddRange(GetFullThingProperties(parentThing.ThingTypeID));
+			
+		//}
 
-		private List<ThingProperty> GetFullThingProperties(int id)
+		private List<ThingProperty> GetAllThingProperties(int id)
 		{
+			List<ThingProperty> allThingProperties;
+			Thing currentThing = GetThingByID(id);
 			_tpda = new ThingPropertyDataAccess();
-			List<ThingProperty> fullThingProperties = _tpda.GetThingProperties(id);
-			foreach (ThingProperty tProp in fullThingProperties)
+			allThingProperties = _tpda.GetThingProperties(id);
+			if (id == 1)
 			{
-				Thing thing = GetThingByID(tProp.OwnedThing.Id);
-				thing.PropertyList = new List<ThingProperty>();
-				tProp.OwnedThing = GetFullThing(thing);
+				return allThingProperties;
 			}
-			return fullThingProperties;
-		}
 
-		
+			//foreach (ThingProperty tProp in fullThingProperties)
+			//{
+			//	Thing thing = GetThingByID(tProp.OwnedThing.Id);
+			//	thing.PropertyList = new List<ThingProperty>();
+			//	tProp.OwnedThing = GetFullThing(thing);
+			//}
+
+			allThingProperties.AddRange(GetAllThingProperties(currentThing.ThingTypeID));
+			return allThingProperties;
+		}	
 
 
 		//public string GetThingAndPropertyHierarchy(int thingId)
