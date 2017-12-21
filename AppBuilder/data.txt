@@ -1,0 +1,106 @@
+{
+  "Id": 2,
+  "Name": "Recipe",
+  "Description": "Instructions to cook food",
+  "ThingTypeID": 1,
+  "PropertyList": [
+    {
+      "ThingPropertyId": 1,
+      "OwnedThing": {
+        "Id": 3,
+        "Name": "Ingredient",
+        "Description": "Measured item in a recipe",
+        "ThingTypeID": 1,
+        "PropertyList": null
+      },
+      "PropertyName": "Ingredients",
+      "PropertyDescription": "Measured items in a recipe",
+      "IsList": true,
+      "SequenceOrder": 0
+    },
+    {
+      "ThingPropertyId": 10,
+      "OwnedThing": {
+        "Id": 11,
+        "Name": "Direction",
+        "Description": "Specific instruction to complete a task",
+        "ThingTypeID": 1,
+        "PropertyList": null
+      },
+      "PropertyName": "Directions",
+      "PropertyDescription": "Directions to complete the recipe",
+      "IsList": true,
+      "SequenceOrder": 0
+    },
+    {
+      "ThingPropertyId": 18,
+      "OwnedThing": {
+        "Id": 5,
+        "Name": "Number",
+        "Description": "A whole or decimal number",
+        "ThingTypeID": 1,
+        "PropertyList": null
+      },
+      "PropertyName": "Servings",
+      "PropertyDescription": "Number of servings in this recipe",
+      "IsList": false,
+      "SequenceOrder": 20
+    },
+    {
+      "ThingPropertyId": 19,
+      "OwnedThing": {
+        "Id": 5,
+        "Name": "Number",
+        "Description": "A whole or decimal number",
+        "ThingTypeID": 1,
+        "PropertyList": null
+      },
+      "PropertyName": "Preparation Time",
+      "PropertyDescription": "Time in hours to prepare the ingredients",
+      "IsList": false,
+      "SequenceOrder": 30
+    },
+    {
+      "ThingPropertyId": 20,
+      "OwnedThing": {
+        "Id": 5,
+        "Name": "Number",
+        "Description": "A whole or decimal number",
+        "ThingTypeID": 1,
+        "PropertyList": null
+      },
+      "PropertyName": "Cooking Time",
+      "PropertyDescription": "Duration of cooking time for this recipe",
+      "IsList": false,
+      "SequenceOrder": 40
+    },
+    {
+      "ThingPropertyId": 16,
+      "OwnedThing": {
+        "Id": 6,
+        "Name": "ShortText",
+        "Description": "Alpha-numeric text less than 100 characters",
+        "ThingTypeID": 1,
+        "PropertyList": null
+      },
+      "PropertyName": "Name",
+      "PropertyDescription": "Descriptive name of this thing",
+      "IsList": false,
+      "SequenceOrder": 10
+    },
+    {
+      "ThingPropertyId": 17,
+      "OwnedThing": {
+        "Id": 7,
+        "Name": "LongText",
+        "Description": "Longer text string more than 100 characters",
+        "ThingTypeID": 1,
+        "PropertyList": null
+      },
+      "PropertyName": "Description",
+      "PropertyDescription": "Describe this thing",
+      "IsList": false,
+      "SequenceOrder": 20
+    }
+  ]
+}
