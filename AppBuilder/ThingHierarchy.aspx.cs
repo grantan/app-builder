@@ -52,19 +52,19 @@ namespace AppBuilder
 			lblPath.Text = WriteThingProject();
 		}
 
-		private string WriteThingToFile()
-		{
-			int thingId = GetThingId();
-			//ObjectGraphUtility util = new ObjectGraphUtility();
-			ThingDataAccess TDA = new ThingDataAccess();
-			Thing fullThing = TDA.GetThingHierarchy(thingId);
+		//private string WriteThingToFile()
+		//{
+		//	int thingId = GetThingId();
+		//	//ObjectGraphUtility util = new ObjectGraphUtility();
+		//	ThingDataAccess TDA = new ThingDataAccess();
+		//	Thing fullThing = TDA.GetThingHierarchy(thingId);
 
-			ObjectGraphUtility util = new ObjectGraphUtility();
-			string serverMapPath = util.WriteFile(txtHierarchy.Text, Server.MapPath("~/" + fullThing.Name));
+		//	ObjectGraphUtility util = new ObjectGraphUtility();
+		//	//string serverMapPath = util.WriteFile(txtHierarchy.Text, Server.MapPath("~/" + fullThing.Name));
 			
-			//ObjectGraphUtility utility = new ObjectGraphUtility();
-			return serverMapPath;			
-		}
+		//	//ObjectGraphUtility utility = new ObjectGraphUtility();
+		//	return serverMapPath;			
+		//}
 
 		private string WriteThingProject()
 		{
