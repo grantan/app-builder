@@ -4,5 +4,7 @@ _ReSharper.*
 bin
 obj
 packages
+# Generated code from the tool
+CodeRepositories/
 # Visual Studio 2015 cache/options directory
 .vs/

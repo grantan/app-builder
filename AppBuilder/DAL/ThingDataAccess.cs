@@ -59,6 +59,11 @@ namespace AppBuilder.DAL
 			
 		//}
 
+		/// <summary>
+		/// Recursive method to project all parent properties onto the current class
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		private List<ThingProperty> GetAllThingProperties(int id)
 		{
 			List<ThingProperty> allThingProperties;
