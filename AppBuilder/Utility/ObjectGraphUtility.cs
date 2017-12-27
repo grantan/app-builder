@@ -48,10 +48,12 @@ namespace AppBuilder.Utility
 		/// <param name="thing"></param>
 		/// <param name="mapPath"></param>
 		/// <returns></returns>
-		public string WriteThingProjectModel(Thing fullThing, string mapPath)
+		public string WriteThingProjectModel(List<Thing> fullThingList, string mapPath)
 		{
 			//main project folder
 			string mainRepoPath = _fileUtil.WriteFolderIfNotExists(mapPath);
+
+			Thing fullThing = fullThingList.FirstOrDefault();
 
 			//make a folder (git) for repo
 			string mainRepoProjectPath = _fileUtil.WriteFolderIfNotExists(mainRepoPath + "\\" + fullThing.Name);
@@ -69,7 +71,11 @@ namespace AppBuilder.Utility
 			//Write the Domain model folder
 			string modelsFolderPath = _fileUtil.WriteFolderIfNotExists(mainCodeProjectPath + "\\models");
 
-			WriteThingModelCSharp(fullThing, modelsFolderPath);		
+			foreach (Thing projectThing in fullThingList)
+			{
+				projectThing.PropertyList = _tpda.GetThingProperties(projectThing.Id);
+				WriteThingModelCSharp(projectThing, modelsFolderPath);
+			}
 
 			return mapPath;
 		}
@@ -89,29 +95,55 @@ namespace AppBuilder.Utility
 			StringBuilder sb = new StringBuilder();
 
 			string mainThingName = fullThing.Name;
-			if(fullThing.Id == 1) //base thing
+			string filePath = modelsFolderPath + "\\" + mainThingName + ".cs";
+			if (fullThing.Id == 1) //base thing
 			{
-				sb.Append("public class " + mainThingName + "\r\n{ ");
-				sb.Append(WriteThing(fullThing));
+				if (!_fileUtil.FileExists(filePath))
+				{
+					sb.Append("public class " + mainThingName + "\r\n{ ");
+					sb.Append(WriteThing(fullThing));
 
 
-				sb.Append("\r\n}");
-				sb.Append(WriteThing(fullThing));
-				_fileUtil.WriteFile(sb.ToString(), modelsFolderPath + "\\" + mainThingName + ".cs");
+					sb.Append("\r\n}");
+					sb.Append(WriteThing(fullThing));
+					_fileUtil.WriteFile(sb.ToString(), filePath);
+
+					foreach (ThingProperty prop in fullThing.PropertyList)
+					{
+						Thing propThing = _tda.GetThingByID(prop.OwnedThing.Id);
+						propThing.PropertyList = _tpda.GetThingProperties(propThing.Id);
+						WriteThingModelCSharp(propThing, modelsFolderPath);
+					}
+				}
+				
 			}
 			
 			else 
 			{
-				Thing parentThing = _tda.GetThingByID(fullThing.ThingTypeID);
-				string parentThingName = parentThing.Name;
-				sb.Append("public class " + mainThingName + " : " + parentThingName + "\r\n{ ");
-				sb.Append("\r\n");
-				sb.Append(WriteThing(fullThing));
+				if (!_fileUtil.FileExists(filePath))
+				{
+					Thing parentThing = _tda.GetThingByID(fullThing.ThingTypeID);
+					
+					string parentThingName = parentThing.Name;
+					sb.Append("public class " + mainThingName + " : " + parentThingName + "\r\n{ ");
+					sb.Append("\r\n");
+					sb.Append(WriteThing(fullThing));
 
-				sb.Append("\r\n}");
+					sb.Append("\r\n}");
 
-				_fileUtil.WriteFile(sb.ToString(), modelsFolderPath + "\\" + mainThingName + ".cs");
-				WriteThingModelCSharp(parentThing, modelsFolderPath);
+					_fileUtil.WriteFile(sb.ToString(), filePath );
+
+
+					foreach (ThingProperty prop in fullThing.PropertyList)
+					{
+						Thing propThing = _tda.GetThingByID(prop.OwnedThing.Id);
+						propThing.PropertyList = _tpda.GetThingProperties(propThing.Id);
+						WriteThingModelCSharp(propThing, modelsFolderPath);
+					}
+
+					parentThing.PropertyList = _tpda.GetThingProperties(parentThing.Id);
+					WriteThingModelCSharp(parentThing, modelsFolderPath);
+				}
 			}
 
 		}
@@ -121,8 +153,8 @@ namespace AppBuilder.Utility
 			StringBuilder sb = new StringBuilder();
 
 			//List the properties of this thing
-			List<ThingProperty> props = _tpda.GetThingProperties(fullThing.Id);
-			foreach (ThingProperty prop in props)
+			//List<ThingProperty> props = _tpda.GetThingProperties(fullThing.Id);
+			foreach (ThingProperty prop in fullThing.PropertyList)
 			{
 				if (prop.IsList)
 				{

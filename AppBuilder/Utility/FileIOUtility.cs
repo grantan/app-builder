@@ -30,5 +30,10 @@ namespace AppBuilder.Utility
 
 			return mapPath;
 		}
+
+		public bool FileExists(string filePath)
+		{
+			return System.IO.File.Exists(filePath);			
+		}
 	}
 }

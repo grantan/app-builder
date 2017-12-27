@@ -40,6 +40,47 @@ namespace AppBuilder.DAL
 			//return GetFullThing(thing);			
 		}
 
+		/// <summary>
+		/// Include parent objects and their associated properties
+		/// </summary>
+		/// <param name="thingId"></param>
+		/// <returns></returns>
+		public List<Thing> GetFullThingHierarchy(int thingId)
+		{
+			_tpda = new ThingPropertyDataAccess();
+			List<Thing> thingList = new List<Thing>();
+			Thing thing = GetThingByID(thingId);
+			thing.PropertyList = _tpda.GetThingProperties(thingId);
+			thingList.Add(thing);
+			if (thingId == 1)
+			{							
+				return thingList;
+			}
+			
+			//thingList.Add(GetFullThingHierarchy(thingId));
+			thingList.AddRange(GetFullThingHierarchy(thing.ThingTypeID));
+
+			//mainThing.PropertyList = GetAllThingProperties(thingId);
+
+			return thingList;
+			//return GetFullThing(thing);
+		}
+
+		//private List<Thing> GetThingHierarchyList(thingId)
+		//{
+		//	Thing thing = GetThingByID(thingId);
+		//	List<ThingProperty> thingProperties = new List<ThingProperty>();
+		//	List<Thing> thingList;
+		//	if (thingId == 1)
+		//	{
+
+		//	}
+		//	 = GetThingHierarchyList(thingId);
+		//	thingList.AddRange()
+		//	Thing mainThing = GetThingByID(thingId);
+		//	return thingList;
+		//}
+
 		//public Thing GetFullThing(Thing currentThing)
 		//{
 		//	currentThing.PropertyList.AddRange(GetFullThingProperties(currentThing.Id));
@@ -56,7 +97,7 @@ namespace AppBuilder.DAL
 		//	parentThing.PropertyList = new List<ThingProperty>();
 		//	parentThing = GetFullThing(parentThing);
 		//	currentThing.PropertyList.AddRange(GetFullThingProperties(parentThing.ThingTypeID));
-			
+
 		//}
 
 		/// <summary>
@@ -107,6 +148,19 @@ namespace AppBuilder.DAL
 			pars[0] = new SqlParameter("@Id", ThingID);
 			Thing Thing = _da.GetObjectByParameters<Thing>(constr, _procName, pars);
 			return Thing;			
+		}
+
+		public Thing GetThingByIDWithProperties(int ThingID)
+		{
+			_da = new DataAccess();
+			_procName = "GetThingByID";
+			SqlParameter[] pars = new SqlParameter[1];  //GetSqlParametersFromObject()
+														//= new SqlParam[size_of_type_attribute_list-1]
+			pars[0] = new SqlParameter("@Id", ThingID);
+			Thing thing = _da.GetObjectByParameters<Thing>(constr, _procName, pars);
+
+			thing.PropertyList = _tpda.GetThingProperties(thing.Id);
+			return thing;			
 		}
 
 		public List<Thing> GetThingList()
