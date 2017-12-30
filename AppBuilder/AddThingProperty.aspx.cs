@@ -24,6 +24,7 @@ namespace AppBuilder
 				TDA = new ThingDataAccess();
 				Thing thing = LoadThing(_id);
 				lblOwnerName.Text = "Owner Thing: " + thing.Name;
+
 				BindPropertyDDL();
 			}
 		}
@@ -47,7 +48,7 @@ namespace AppBuilder
 			int ownerId = _id;
 			int propertyId = Int32.Parse(ddlTypes.SelectedValue);
 			TPDA = new ThingPropertyDataAccess();
-			TPDA.InsertThingProperty(ownerId, propertyId, txtName.Text, txtDescription.Text, cbList.Checked, Int32.Parse(txtOrder.Text));
+			TPDA.InsertThingProperty(ownerId, propertyId, txtName.Text, txtDescription.Text, cbList.Checked, 0);
 			Response.Redirect("EditThing.aspx?id="+ownerId);
 		}
 

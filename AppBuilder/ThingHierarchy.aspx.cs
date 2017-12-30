@@ -42,57 +42,8 @@ namespace AppBuilder
 		protected void btnReturn_Click(object sender, EventArgs e)
 		{
 			Response.Redirect("ThingList.aspx");
-		}
-
-		protected void btnWrite_Click(object sender, EventArgs e)
-		{
-
-			lblPath.Visible = true;
-			//lblPath.Text = WriteThingToFile();
-			lblPath.Text = WriteThingProject();
-		}
-
-		//private string WriteThingToFile()
-		//{
-		//	int thingId = GetThingId();
-		//	//ObjectGraphUtility util = new ObjectGraphUtility();
-		//	ThingDataAccess TDA = new ThingDataAccess();
-		//	Thing fullThing = TDA.GetThingHierarchy(thingId);
-
-		//	ObjectGraphUtility util = new ObjectGraphUtility();
-		//	//string serverMapPath = util.WriteFile(txtHierarchy.Text, Server.MapPath("~/" + fullThing.Name));
-
-		//	//ObjectGraphUtility utility = new ObjectGraphUtility();
-		//	return serverMapPath;			
-		//}
-
-		private string WriteThingProject()
-		{
-			int thingId = GetThingId();
-			//ObjectGraphUtility util = new ObjectGraphUtility();
-			ThingDataAccess TDA = new ThingDataAccess();
-			List<Thing> fullThingList = TDA.GetFullThingHierarchy(thingId);
-
-			ObjectGraphUtility util = new ObjectGraphUtility();
-			string serverMapPath = util.WriteThingProjectModel(fullThingList, Server.MapPath("~/CodeRepositories"));
-
-			//ObjectGraphUtility utility = new ObjectGraphUtility();
-			return serverMapPath;
-		}
-
-		//private string WriteThingProjectOld()
-		//{
-		//	int thingId = GetThingId();
-		//	//ObjectGraphUtility util = new ObjectGraphUtility();
-		//	ThingDataAccess TDA = new ThingDataAccess();
-		//	Thing fullThing = TDA.GetThingHierarchy(thingId);
-
-		//	ObjectGraphUtility util = new ObjectGraphUtility();
-		//	string serverMapPath = util.WriteThingProjectModel(fullThing, Server.MapPath("~/CodeRepositories"));
-
-		//	//ObjectGraphUtility utility = new ObjectGraphUtility();
-		//	return serverMapPath;
-		//}
+		}		
+		
 	}
 
 	

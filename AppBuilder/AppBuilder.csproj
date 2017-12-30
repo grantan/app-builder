@@ -297,7 +297,6 @@
     <Compile Include="ThingList.aspx.designer.cs">
       <DependentUpon>ThingList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Utility\FileIOUtility.cs" />
     <Compile Include="Utility\ObjectGraphUtility.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

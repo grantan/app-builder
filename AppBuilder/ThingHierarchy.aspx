@@ -13,13 +13,7 @@
         </div>
         <div>
             <asp:Button ID="btnReturn" runat="server" Text="Return" OnClick="btnReturn_Click" />
-        </div>
-        <div>
-            <asp:Button ID="btnWrite" runat="server" Text="Write" OnClick="btnWrite_Click" />
-        </div>
-        <div>
-            <asp:Label ID="lblPath" runat="server" Visible="false"></asp:Label>
-        </div>
+        </div>        
     </form>
 </body>
 </html>
